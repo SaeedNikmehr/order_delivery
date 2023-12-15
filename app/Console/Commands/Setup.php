@@ -19,15 +19,13 @@ class Setup extends Command
 
     protected $description = 'Create and install all necessary tables, fields or data for running application';
 
-    public function handle(): int
+    public function handle(): void
     {
         $this->bar = $this->output->createProgressBar(2);
         $this->bar->start();
         $this->migrate();
         $this->seeder();
         $this->finish();
-
-        return Command::SUCCESS;
     }
 
     //--------------------------------|| Private Methods ||--------------------------------

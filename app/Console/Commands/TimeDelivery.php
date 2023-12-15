@@ -14,7 +14,7 @@ class TimeDelivery extends Command
 
     protected $description = 'Create required records in database to receive new time delivery when announce delay for an order';
 
-    public function handle(): int
+    public function handle(): void
     {
         $user = User::query()->first();
         $order = Order::factory()->has(Trip::factory()->sequence(['status' => \App\Enums\Models\Trip\Status::ASSIGNED]))->create([
@@ -26,7 +26,5 @@ class TimeDelivery extends Command
 
         $this->info('Order ID : ' . $order->id);
         $this->info('User ID : ' . $user->id);
-
-        return Command::SUCCESS;
     }
 }
