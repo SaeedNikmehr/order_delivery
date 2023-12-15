@@ -4,7 +4,6 @@ namespace App\Utils;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Client\Response as HttpResponse;
 use Illuminate\Http\JsonResponse;
 
 class Response implements Arrayable
@@ -20,28 +19,6 @@ class Response implements Arrayable
     private array $errors = [];
 
     private array $headers = [];
-
-    private function reset(): void
-    {
-        $this->code = null;
-        $this->status = null;
-        $this->message = '';
-        $this->data = [];
-        $this->errors = [];
-        $this->headers = [];
-    }
-
-    public function fromHttp(HttpResponse $response): static
-    {
-        return $this->fromBody($response->json())->code($response->status())->headers($response->headers());
-    }
-
-    public function fromBody(?array $content): static
-    {
-        $this->reset();
-
-        return $this->body($content);
-    }
 
     public function success(string $message = ''): static
     {
@@ -65,16 +42,6 @@ class Response implements Arrayable
         if (is_null($this->code)) {
             $this->code = 400;
         }
-
-        return $this;
-    }
-
-    public function body(?array $content): static
-    {
-        $this->status = $content['status'] ?? $this->status;
-        $this->message = $content['message'] ?? $this->message;
-        $this->data = $content['data'] ?? $this->data;
-        $this->errors = $content['errors'] ?? $this->errors;
 
         return $this;
     }
@@ -159,4 +126,17 @@ class Response implements Arrayable
             'errors' => $this->errors,
         ];
     }
+
+    //--------------------------------|| Private Methods ||--------------------------------
+
+    private function reset(): void
+    {
+        $this->code = null;
+        $this->status = null;
+        $this->message = '';
+        $this->data = [];
+        $this->errors = [];
+        $this->headers = [];
+    }
+
 }
