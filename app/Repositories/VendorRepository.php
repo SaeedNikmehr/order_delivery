@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 
 class VendorRepository
 {
-    public function DelaysReport(): Collection|array
+    public function DelaysReport(): Collection
     {
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();

@@ -62,7 +62,7 @@ class CustomHandler extends ExceptionHandler
     private function message(Throwable $e): string
     {
         return match (true) {
-            $e instanceof NotFoundHttpException => 'Not Found !',
+            $e instanceof NotFoundHttpException => 'Entity Not Found !',
             $e instanceof HttpResponseException, $e instanceof ValidationException => $e->getMessage(),
             default => $this->convertExceptionToArray($e)['message'],
         };
