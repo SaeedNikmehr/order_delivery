@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('delay_reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
-            //$table->unsignedBigInteger('trip_id');
             $table->unsignedTinyInteger('time_delivery')->nullable();
             $table->dateTime('date_delivery')->nullable();
             $table->timestamps();

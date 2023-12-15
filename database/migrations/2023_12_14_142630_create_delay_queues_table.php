@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id')->unique();
             $table->unsignedBigInteger('agent_id')->nullable()->unique();
-            //$table->unsignedBigInteger('trip_id')->nullable();
             $table->timestamps();
         });
     }
