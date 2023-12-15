@@ -23,7 +23,6 @@ class Setup extends Command
     {
         $this->bar = $this->output->createProgressBar(2);
         $this->bar->start();
-
         $this->migrate();
         $this->seeder();
         $this->finish();
@@ -43,66 +42,68 @@ class Setup extends Command
     {
         $this->bar->finish();
         $this->newLine();
-
-        $vendors = Vendor::all();
-        $users = User::all();
-        $agents = Agent::all();
-        $couriers = Courier::all();
-        $orders = Order::all();
-
-        $this->info('Vendors : ');
-        $this->table(
-            ['ID', 'name', 'Created At', 'Updated At'],
-            $vendors
-        );
-
-        $this->info('Users : ');
-        $this->table(
-            ['ID', 'name', 'Created At', 'Updated At'],
-            $users
-        );
-
-        $this->info('Agents : ');
-        $this->table(
-            ['ID', 'name', 'Created At', 'Updated At'],
-            $agents
-        );
-
-        $this->info('Couriers : ');
-        $this->table(
-            ['ID', 'name', 'Created At', 'Updated At'],
-            $couriers
-        );
-
-        $this->info('Orders : ');
-        $this->table(
-            ['ID', 'vendor_id', 'user_id', 'status', 'time_delivery', 'date_delivery', 'Created At', 'Updated At'],
-            $orders
-        );
+        $this->showVendorsTable();
+        $this->showUsersTable();
+        $this->showAgentsTable();
+        $this->showCouriersTable();
+        $this->showOrdersTable();
         $this->info('Current Date : ' . now());
         $this->newLine();
-    }
-
-    private function systemicAgency(): void
-    {
-        $stub = agencyDetailsStub();
-        $stub['type'] = Type::SYSTEMIC->value;
-        $systemicAgency =
-            [
-                'title' => 'آژانس هتل',
-                'mobile' => $this->systemicAgencyMobile,
-                'mobile_verified_at' => now(),
-                'password' => $this->defaultPassword,
-                'role' => Role::AGENCY->value,
-                'details' => $stub,
-            ];
-        UserFacade::upsert($systemicAgency);
-        $this->bar->advance();
     }
 
     private function seeder(): void
     {
         Artisan::call('db:seed');
         $this->bar->advance();
+    }
+
+    private function showVendorsTable(): void
+    {
+        $vendors = Vendor::all();
+        $this->info('Vendors : ');
+        $this->table(
+            ['ID', 'name', 'Created At', 'Updated At'],
+            $vendors
+        );
+    }
+
+    private function showUsersTable(): void
+    {
+        $users = User::all();
+        $this->info('Users : ');
+        $this->table(
+            ['ID', 'name', 'Created At', 'Updated At'],
+            $users
+        );
+    }
+
+    private function showAgentsTable(): void
+    {
+        $agents = Agent::all();
+        $this->info('Agents : ');
+        $this->table(
+            ['ID', 'name', 'Created At', 'Updated At'],
+            $agents
+        );
+    }
+
+    private function showCouriersTable(): void
+    {
+        $couriers = Courier::all();
+        $this->info('Couriers : ');
+        $this->table(
+            ['ID', 'name', 'Created At', 'Updated At'],
+            $couriers
+        );
+    }
+
+    private function showOrdersTable(): void
+    {
+        $orders = Order::all();
+        $this->info('Orders : ');
+        $this->table(
+            ['ID', 'vendor_id', 'user_id', 'status', 'time_delivery', 'date_delivery', 'Created At', 'Updated At'],
+            $orders
+        );
     }
 }
