@@ -63,3 +63,31 @@ tables:
 
 Half of the inserted orders passed their time for delivery, and you can request a delay, and half of them still have
 time to process and deliver.
+
+You can run tests inside container with this command:
+
+```php
+php artisan test
+```
+
+Or with this command outside the container:
+
+```php
+./vendor/bin/sail php artisan test
+```
+
+### Test Scenarios:
+
+Since we only have 3 APIs, some of the scenarios can not be seen just after running ```php artisan setup``` command
+and need other APIs or database manual manipulation.
+
+for those, there are separate commands to create related records in the database:
+
+| Scenario                           |     API      |    Command    |     Response      |
+|------------------------------------|:------------:|:-------------:|:-----------------:|
+| get new time delivery              | report-delay | time_delivery | order_id, user_id |
+| allocate a delay queue to an agent |   allocate   |  delay_queue  |     agent_id      |
+
+These command will return necessary params or body values for you to request.
+
+#### Example:  ```php artisan time_delivery```
