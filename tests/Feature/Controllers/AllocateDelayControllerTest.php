@@ -1,5 +1,6 @@
 <?php
 
+namespace Tests\Feature\Controllers;
 
 use App\Facades\DelayQueue;
 use App\Models\Agent;

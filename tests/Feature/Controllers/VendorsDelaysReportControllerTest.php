@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature\Controllers;
+
 use App\Facades\Vendor;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;

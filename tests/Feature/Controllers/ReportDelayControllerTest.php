@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Controllers;
 
 use App\Facades\Order;
 use App\Models\User;
